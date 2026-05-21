@@ -12,7 +12,7 @@ except:
     print("Error: Model not found. Please run train_model.py first!")
     exit()
 
-CLASS_NAMES = ['Microcar', 'Pickup Trucks'] #, 'Sedan', 'Sports', 'Van'
+CLASS_NAMES = ['Microcar', 'Pickup Trucks', 'Sedan', 'Sports', 'Van']
 IMG_SIZE = 150
 
 def classify_image():

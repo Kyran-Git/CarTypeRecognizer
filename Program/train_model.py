@@ -10,9 +10,9 @@ BATCH_SIZE = 16
 IMG_HEIGHT = 150
 IMG_WIDTH = 150
 EPOCHS = 15
-NUM_CLASSES = 2
+NUM_CLASSES = 5
 
-CLASS_NAMES = ['Microcar', 'Pickup Trucks'] #, 'Sedan', 'Sports', 'Van'
+CLASS_NAMES = ['Microcar', 'Pickup Trucks', 'Sedan', 'Sports', 'Van']
 
 DATA_DIR = 'Data'
 
