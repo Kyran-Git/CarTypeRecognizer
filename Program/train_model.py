@@ -9,7 +9,7 @@ import os
 BATCH_SIZE = 16
 IMG_HEIGHT = 150
 IMG_WIDTH = 150
-EPOCHS = 15
+EPOCHS = 100
 NUM_CLASSES = 5
 
 CLASS_NAMES = ['Microcar', 'Pickup Trucks', 'Sedan', 'Sports', 'Van']
