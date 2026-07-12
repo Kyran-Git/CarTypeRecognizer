@@ -89,7 +89,7 @@ model = models.Sequential([
 ])
 
 model.compile(optimizer=Adam(learning_rate=0.001),
-              loss='categorical_crossentropy',
+              loss=tf.keras.losses.CategoricalCrossentropy(label_smoothing=0.1),
               metrics=['accuracy'])
 
 # ==========================================
