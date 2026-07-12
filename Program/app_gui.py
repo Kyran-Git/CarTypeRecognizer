@@ -60,4 +60,3 @@ result_label = tk.Label(root, text="Upload an image to see the prediction.", fon
 result_label.pack(pady=20)
 
 root.mainloop()
-# hello
