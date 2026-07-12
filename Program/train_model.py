@@ -35,8 +35,7 @@ test_dataset = tf.keras.utils.image_dataset_from_directory(
     class_names=CLASS_NAMES,
     image_size=(IMG_HEIGHT, IMG_WIDTH),
     batch_size=BATCH_SIZE,
-    label_mode='categorical',
-    shuffle=False
+    label_mode='categorical'
 )
 
 data_augmentation = tf.keras.Sequential([
@@ -79,20 +78,41 @@ history = model.fit(
 model.save('car_type_model.h5')
 print("Model saved as 'car_type_model.h5'")
 
-# Results and evaluation metrics
-y_true = np.concatenate([y for x, y in test_dataset], axis=0)
-y_true_labels = np.argmax(y_true, axis=1)
+# ==========================================
+# 5. RESULTS & EVALUATION METRICS
+# ==========================================
+print("\nEvaluating Model on Test Data...")
 
-y_pred = model.predict(test_dataset)
-y_pred_labels = np.argmax(y_pred, axis=1)
+y_true_labels = []
+y_pred_labels = []
 
-# Print accuracy, precision, recall, and F1-score
+# Loop through the test dataset batch by batch
+for images, labels in test_dataset:
+    preds = model.predict(images, verbose=0) # Predict the current batch
+    y_true_labels.extend(np.argmax(labels.numpy(), axis=1)) # Save actual answers
+    y_pred_labels.extend(np.argmax(preds, axis=1))          # Save AI predictions
+
+# Convert to arrays for the matrix
+y_true_labels = np.array(y_true_labels)
+y_pred_labels = np.array(y_pred_labels)
+
+# Print Accuracy, Precision, Recall, F1-Score
 print("\n--- PERFORMANCE METRICS ---")
-print(classification_report(y_true_labels, y_pred_labels, target_names=CLASS_NAMES))
+print(classification_report(
+    y_true_labels, 
+    y_pred_labels, 
+    target_names=CLASS_NAMES, 
+    labels=range(NUM_CLASSES),
+    zero_division=0
+))
 
 # Confusion Matrix Visualization
 print("\nGenerating Confusion Matrix...")
-cm = confusion_matrix(y_true_labels, y_pred_labels)
+cm = confusion_matrix(
+    y_true_labels, 
+    y_pred_labels, 
+    labels=range(NUM_CLASSES)
+)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=CLASS_NAMES)
 disp.plot(cmap=plt.cm.Blues, xticks_rotation=45)
 plt.title("Confusion Matrix for Car Type Classification")
